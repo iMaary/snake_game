@@ -1,4 +1,6 @@
 #include <GL/glut.h>
+#include <tchar.h>
+#include <windows.h>
 #include "game.h"
 
 #define COLUMNS 40
@@ -6,6 +8,7 @@
 #define FPS 10
 
 extern short sDirection;
+bool gameOver = false;
 
 void init();
 void timerCallback(int);
@@ -36,6 +39,11 @@ void displayCallback() {
 	drawGrid();
 	drawSnake();
 	glutSwapBuffers();
+
+	if (gameOver) {
+		MessageBox(NULL, _T("YOUR SCORE: "), _T("GAME OVER"), 0);
+		exit(0);
+	}
 }
 
 void reshapeCallback(GLsizei w, GLsizei h) {

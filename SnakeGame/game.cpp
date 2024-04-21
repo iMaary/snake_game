@@ -4,6 +4,7 @@
 int gridX, gridY;
 int posX = 20, posY = 20;
 short sDirection = RIGHT;
+extern bool gameOver;
 
 void unit(int x, int y);
 
@@ -48,5 +49,9 @@ void drawSnake() {
 	else if (sDirection == LEFT)
 		posX--;
 
+	glColor3f(0.0, 1.0, 0.0);
 	glRectd(posX, posY, posX+1, posY+1);
+
+	if (posX == 0 || posX == gridX - 1 || posY == 0 || posY == gridY - 1)
+		gameOver = true;
 }
