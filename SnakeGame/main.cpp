@@ -7,8 +7,6 @@
 #define ROWS 40
 #define FPS 10
 
-#define MAX 60
-
 extern short sDirection;
 bool gameOver = false;
 

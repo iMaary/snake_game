@@ -78,8 +78,13 @@ void drawSnake() {
 	if (posX[0] == 0 || posX[0] == gridX - 1 || posY[0] == 0 || posY[0] == gridY - 1)
 		gameOver = true;
 
-	if (posX[0] == foodX && posY[0] == foodY)
+	if (posX[0] == foodX && posY[0] == foodY) {
+		snakeLength++;
+		
+		if (snakeLength > MAX)
+			snakeLength = MAX;
 		food = true;
+	}
 }
 
 void random(int& x, int& y) {
