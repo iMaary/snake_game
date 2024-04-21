@@ -9,5 +9,7 @@
 void initGrid(int x, int y);
 void drawGrid();
 void drawSnake();
+void drawFood();
+void random(int&, int&);
 
 #endif
