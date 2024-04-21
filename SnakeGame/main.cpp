@@ -1,8 +1,12 @@
 #include <GL/glut.h>
+#include "game.h"
+
+#define COLUMNS 40
+#define ROWS 40
 
 void init();
 void displayCallback();
-void reshapeCallback(int w, int h);
+void reshapeCallback(GLsizei w, GLsizei h);
 
 int main(int argc, char** argv) {
 	glutInit(&argc, argv);
@@ -22,6 +26,7 @@ int main(int argc, char** argv) {
 
 void displayCallback() {
 	glClear(GL_COLOR_BUFFER_BIT);
+	drawGrid();
 	glutSwapBuffers();
 }
 
@@ -29,10 +34,11 @@ void reshapeCallback(GLsizei w, GLsizei h) {
 	glViewport(0, 0, w, h);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(0.0, 40.0, 0.0, 40.0, -1.0, 1.0);
+	glOrtho(0.0, COLUMNS, 0.0, ROWS, -1.0, 1.0);
 	glMatrixMode(GL_MODELVIEW);
 }
 
 void init() {
 	glClearColor(0.0, 0.0, 0.0, 1.0);
+	initGrid(COLUMNS, ROWS);
 }
