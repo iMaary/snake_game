@@ -3,7 +3,8 @@
 #include "game.h"
 
 int gridX, gridY;
-int posX = 20, posY = 20;
+int snakeLength = 5;
+int posX[60] = {20,20,20,20,20}, posY[60] = {20,19,18,17,16};
 int foodX, foodY;
 bool food = true;
 short sDirection = RIGHT;
@@ -52,22 +53,32 @@ void drawFood() {
 }
 
 void drawSnake() {
+	for (int i = snakeLength-1; i > 0; i--) {
+		posX[i] = posX[i - 1];
+		posY[i] = posY[i - 1];
+	}
+
 	if (sDirection == UP)
-		posY++;
+		posY[0]++;
 	else if (sDirection == DOWN)
-		posY--;
+		posY[0]--;
 	else if (sDirection == RIGHT)
-		posX++;
+		posX[0]++;
 	else if (sDirection == LEFT)
-		posX--;
+		posX[0]--;
 
-	glColor3f(0.0, 1.0, 0.0);
-	glRectd(posX, posY, posX+1, posY+1);
+	for (int i = 0; i < snakeLength; i++) {
+		if (i == 0)
+			glColor3f(0.0, 1.0, 0.0);
+		else
+			glColor3f(0.0, 0.0, 1.0);
+		glRectd(posX[i], posY[i], posX[i] + 1, posY[i] + 1);
+	}
 
-	if (posX == 0 || posX == gridX - 1 || posY == 0 || posY == gridY - 1)
+	if (posX[0] == 0 || posX[0] == gridX - 1 || posY[0] == 0 || posY[0] == gridY - 1)
 		gameOver = true;
 
-	if (posX == foodX && posY == foodY)
+	if (posX[0] == foodX && posY[0] == foodY)
 		food = true;
 }
 
