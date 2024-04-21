@@ -3,8 +3,12 @@
 
 #define COLUMNS 40
 #define ROWS 40
+#define FPS 10
+
+int index=0;
 
 void init();
+void timerCallback(int);
 void displayCallback();
 void reshapeCallback(GLsizei w, GLsizei h);
 
@@ -18,6 +22,7 @@ int main(int argc, char** argv) {
 	// Callback Functions
 	glutDisplayFunc(displayCallback);
 	glutReshapeFunc(reshapeCallback);
+	glutTimerFunc(0, timerCallback, 0);
 	// Initializer Screen
 	init();
 	// Keeps the Screen Running
@@ -27,6 +32,13 @@ int main(int argc, char** argv) {
 void displayCallback() {
 	glClear(GL_COLOR_BUFFER_BIT);
 	drawGrid();
+	glRectd(index, 20, index+2, 22);
+	index++;
+
+	if (index > 40) {
+		index = 0;
+	}
+
 	glutSwapBuffers();
 }
 
@@ -36,6 +48,11 @@ void reshapeCallback(GLsizei w, GLsizei h) {
 	glLoadIdentity();
 	glOrtho(0.0, COLUMNS, 0.0, ROWS, -1.0, 1.0);
 	glMatrixMode(GL_MODELVIEW);
+}
+
+void timerCallback(int) {
+	glutPostRedisplay();
+	glutTimerFunc(1000/FPS, timerCallback, 0);
 }
 
 void init() {
